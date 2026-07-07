@@ -336,7 +336,7 @@ st.markdown("""
   <div class="hero-badge">🫘 &nbsp; AI-Powered Nephrology</div>
   <h1 class="hero-title">Nephro<span>Scan</span></h1>
   <p class="hero-sub">Advanced Chronic Kidney Disease Risk Intelligence</p>
-  <div class="accuracy-pill">Model Accuracy &nbsp;·&nbsp; 94.00%</div>
+  <div class="accuracy-pill">Model Accuracy &nbsp;·&nbsp; 99.00%</div>
 </div>
 """, unsafe_allow_html=True)
 
