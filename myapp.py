@@ -377,47 +377,33 @@ predict_clicked = st.button("⟡  Run Diagnostic Analysis")
 if predict_clicked:
     input_data   = np.array([[sc, al, hemo, bp, dm, htn, age, appet, ane]])
     input_scaled = scaler.transform(input_data)
-    risk_proba   = model.predict_proba(input_scaled)[0][1]
-
-    if risk_proba >= 0.60:
-        risk_label = "High Risk of CKD"
-        card_class = "result-danger"
-        icon = "⚠️"
-        title = "Elevated CKD Risk Detected"
-        description = (
-            "The diagnostic model indicates a high probability of Chronic Kidney Disease. "
-            "Immediate referral to a nephrologist and confirmatory testing is strongly advised."
-        )
-    elif risk_proba >= 0.30:
-        risk_label = "Low Risk of CKD"
-        card_class = "result-safe"
-        icon = "✅"
-        title = "Low Risk — Monitor Regularly"
-        description = (
-            "The model suggests a low probability of CKD, but monitoring and follow-up care "
-            "remain important for long-term kidney health."
-        )
-    else:
-        risk_label = "Normal Risk of CKD"
-        card_class = "result-safe"
-        icon = "✅"
-        title = "Normal Risk — Healthy Indicators"
-        description = (
-            "The model indicates minimal risk of CKD. Continue healthy habits and routine checkups "
-            "to keep kidney function stable."
-        )
+    prediction   = model.predict(input_scaled)
 
     st.markdown('<div class="neo-divider"></div>', unsafe_allow_html=True)
-    st.markdown(f"<div style='margin-bottom:12px; color: var(--text-sec); font-size:14px;'>Predicted CKD probability: {risk_proba:.1%}</div>", unsafe_allow_html=True)
-    st.markdown(f"""
-    <div class="{card_class}">
-      <div class="result-icon">{icon}</div>
-      <div class="result-title">{title}</div>
-      <p class="result-desc">
-        {description}
-      </p>
-    </div>
-    """, unsafe_allow_html=True)
+
+    if prediction[0] == 1:
+        st.markdown("""
+        <div class="result-danger">
+          <div class="result-icon">⚠️</div>
+          <div class="result-title">Elevated CKD Risk Detected</div>
+          <p class="result-desc">
+            The diagnostic model indicates a high probability of Chronic Kidney Disease.
+            Immediate referral to a nephrologist and confirmatory testing is strongly advised.
+          </p>
+        </div>
+        """, unsafe_allow_html=True)
+    else:
+        st.markdown("""
+        <div class="result-safe">
+          <div class="result-icon">✅</div>
+          <div class="result-title">Low Risk — No CKD Detected</div>
+          <p class="result-desc">
+            Biomarker and clinical indicators fall within acceptable ranges.
+            Routine monitoring and a healthy lifestyle are still recommended.
+          </p>
+        </div>
+        """, unsafe_allow_html=True)
+
 # ── Footer ────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="neo-footer">
