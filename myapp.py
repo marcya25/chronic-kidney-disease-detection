@@ -321,6 +321,22 @@ div[data-baseweb="popover"] { background: var(--bg-panel) !important; }
 li[role="option"] { color: var(--text-pri) !important; background: var(--bg-panel) !important; }
 li[role="option"]:hover { background: rgba(0,229,195,0.1) !important; }
 
+/* ── Fix selectbox selected-value text visibility ── */
+div[data-baseweb="select"] div,
+div[data-baseweb="select"] span {
+  color: var(--text-pri) !important;
+}
+
+/* dropdown arrow icon */
+div[data-baseweb="select"] svg {
+  fill: var(--teal) !important;
+}
+
+/* placeholder text (if any) */
+div[data-baseweb="select"] div[class*="placeholder"] {
+  color: var(--text-sec) !important;
+}
+
 /* Number input spinners */
 button[kind="icon"] { color: var(--teal) !important; }
 </style>
